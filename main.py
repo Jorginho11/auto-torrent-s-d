@@ -1,4 +1,6 @@
 from torrent import *
+from transmission import transmission_client as tc
+
 
 
 if __name__ == "__main__":

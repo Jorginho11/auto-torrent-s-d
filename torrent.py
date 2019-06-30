@@ -2,24 +2,27 @@ from urllib.parse import quote
 from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
 import re
-import webbrowser
-from constants import *
+import subprocess
+
 
 class Torrent:
-
     def __str__(self):
         return "(%s / %s) (%s) (%s) (%d SE / %d LE) %s" % (self.category,
                                                            self.subcategory,
                                                            self.size,
-                                                           self.date,
+                                                       self.date,
                                                            self.seeders,
                                                            self.leeches,
                                                            self.name)
 
+    def transmission_client(self, client):
+        self.client = client
+
     def download(self):
         print("dis da magnet link")
+        #webbrowser.open(self.magnet, autoraise=False)
         print(self.magnet)
-        webbrowser.open(self.magnet, autoraise=False)
+        subprocess.call("sh transmission.sh %s" % (self.magnet), shell=True)
 
     def add_inner_url(self,url,inner):
         self.inner_url = str(url)+str(inner)
